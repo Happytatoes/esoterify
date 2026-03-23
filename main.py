@@ -34,7 +34,6 @@ def run_transformation():
 # main program loop / user menu options
 def main():
 	print("\nwelcome to esoterify!")
-	print("find more info @ happytatoes.com/esoterify")
 	print_menu()
 	while True:
 		user_option = input("enter your menu option: ") 
@@ -68,7 +67,7 @@ def main():
 		elif user_option == "k":
 			view_keys()
 		elif user_option == "l":
-			print("\nfind more info @ happytatoes.com/esoterify\n")
+			print("\nfind more info @ happytatoes.com/writings\n")
 		elif user_option == "m":
 			print_menu()
 		elif user_option == "q":

@@ -3,6 +3,7 @@
 
 #imports
 import globals as g
+import ciphers
 from utils import print_menu, print_options, view_keys
 from ciphers import (
 	run_caesar, run_aes, run_aes_decrypt,
@@ -58,12 +59,10 @@ def main():
 			else:
 				run_transformation()
 		elif user_option == "c":
-			print("\nnot implemented yet\n")
-			#add
-			#add
-			#add
-			#add
-			#add
+			if hasattr(ciphers, "run_chain"):
+				ciphers.run_chain()
+			else:
+				print("\nchain mode not implemented yet\n")
 		elif user_option == "k":
 			view_keys()
 		elif user_option == "l":

@@ -230,6 +230,53 @@ def run_chacha20_decrypt():
 	g.current_message = plaintext
 	print("\n<result: decryption complete>\n")
 
+# ==================== CHAIN ====================
+
+def run_chain():
+	print("\n<chain mode engaged>\n")
+	print("info: run multiple encryptions/decryptions in sequence")
+	print("enter space-separated letter codes")
+	print("example: b c f")
+	print("a=caesar b=rsa c=aes d=chacha20 e=rsa decrypt f=aes decrypt g=chacha20 decrypt")
+
+	chain_raw = input("enter chain: ").strip().lower()
+	if chain_raw == "":
+		print("empty chain. returning to menu")
+		return
+
+	chain_codes = [code for code in chain_raw.split() if code != ""]
+
+	operations = {
+		"a": ("Caesar", run_caesar),
+		"b": ("RSA", run_rsa),
+		"c": ("AES-256-CFB", run_aes),
+		"d": ("ChaCha20", run_chacha20),
+		"e": ("RSA decrypt", run_rsa_decrypt),
+		"f": ("AES-256-CFB decrypt", run_aes_decrypt),
+		"g": ("ChaCha20 decrypt", run_chacha20_decrypt),
+	}
+
+	invalid_codes = [code for code in chain_codes if code not in operations]
+	if len(invalid_codes) > 0:
+		print("\ninvalid chain code(s):", ' '.join(invalid_codes))
+		print("valid codes are: a b c d e f g")
+		return
+
+	print("\n<chain summary>\n")
+	for i, code in enumerate(chain_codes):
+		print(f"{i+1}. {code} - {operations[code][0]}")
+
+	for i, code in enumerate(chain_codes):
+		name, operation = operations[code]
+		print(f"\n<chain step {i+1}/{len(chain_codes)}: {name}>\n")
+		print("message before step:")
+		print(g.current_message)
+		operation()
+		print("message after step:")
+		print(g.current_message)
+
+	print("\n<result: chain complete>\n")
+
 # ==================== RSA ====================
 
 # --- HELPER MATH FUNCTIONS ---
